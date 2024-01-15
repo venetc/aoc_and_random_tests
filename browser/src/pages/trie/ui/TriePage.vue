@@ -58,11 +58,11 @@ function sanitizeText() {
 }
 
 function searchTrie(text: string) {
-  trieAutocomplete.value = trie.value.autocomplete(text)
+  trieAutocomplete.value = trie.value.autocomplete(text.toLowerCase())
 }
 
 function searchFilter(text: string) {
-  filterAutocomplete.value = words.value.filter(word => word.startsWith(text))
+  filterAutocomplete.value = words.value.filter(word => word.startsWith(text.toLowerCase()))
 }
 </script>
 
