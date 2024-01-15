@@ -1,3 +1,69 @@
+import { ref, shallowRef } from 'vue'
+
+import { sanitizeImperative, splitToUniqueWords } from '@/shared/lib'
+
+export function useAutocomplete(input: string) {
+  const wordsArray = shallowRef<string[]>([])
+
+  const rawText = ref(input)
+
+  const trie = shallowRef(new Trie())
+
+  const searchByTrieInput = ref('')
+  const trieSuggestions = ref<string[]>([])
+
+  const searchByFilterInput = ref('')
+  const filterSuggestions = ref<string[]>([])
+
+  const searchTrie = () => {
+    trieSuggestions.value = trie.value.autocomplete(searchByTrieInput.value.toLowerCase())
+  }
+
+  const searchFilter = () => {
+    filterSuggestions.value = wordsArray.value.filter(word => word.startsWith(searchByFilterInput.value.toLowerCase()))
+  }
+
+  const sanitizeText = () => {
+    rawText.value = sanitizeImperative(rawText.value)
+    wordsArray.value = splitToUniqueWords(rawText.value)
+
+    trie.value = new Trie()
+    trie.value.insertArray(wordsArray.value)
+
+    searchTrie()
+    searchFilter()
+  }
+
+  const reset = () => {
+    searchByTrieInput.value = ''
+    searchByFilterInput.value = ''
+    trieSuggestions.value = []
+    filterSuggestions.value = []
+    wordsArray.value = []
+    trie.value = new Trie()
+    rawText.value = input
+  }
+
+  const clear = () => {
+    reset()
+    rawText.value = ''
+  }
+
+  return {
+    wordsArray,
+    rawText,
+    searchByTrieInput,
+    trieSuggestions,
+    searchByFilterInput,
+    filterSuggestions,
+    sanitizeText,
+    searchTrie,
+    searchFilter,
+    reset,
+    clear,
+  }
+}
+
 class TrieNode {
   children: Map<string, TrieNode>
   isWord: boolean
