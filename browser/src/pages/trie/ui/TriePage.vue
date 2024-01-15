@@ -53,6 +53,8 @@ function sanitizeText() {
 
   trieAutocomplete.value = []
   filterAutocomplete.value = []
+
+  console.log(trie.value)
 }
 
 function searchTrie(text: string) {
@@ -65,7 +67,7 @@ function searchFilter(text: string) {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-x-3 gap-y-6 font-fira_code">
+  <div class="grid grid-cols-3 gap-x-3 gap-y-6 font-fira_code max-lg:grid-cols-1">
     <div class="col-span-1">
       <div class="text-sm mb-3">
         Input:
@@ -150,7 +152,7 @@ function searchFilter(text: string) {
       </Transition>
     </div>
     <Transition name="fade">
-      <div v-if="words.length > 0" class="col-span-3 flex flex-wrap gap-x-1.5 gap-y-1 text-xs">
+      <div v-if="words.length > 0" class="col-span-full flex flex-wrap gap-x-1.5 gap-y-1 text-xs">
         <span v-for="word of words" :key="word" class="border rounded-full px-2">
           {{ word }}
         </span>
