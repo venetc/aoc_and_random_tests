@@ -4,10 +4,23 @@ import { AppRoot } from '@/app'
 import { router } from '@/app/providers'
 import '@/style.css'
 
-const meta = document.createElement('meta')
-meta.name = 'naive-ui-style'
-document.head.appendChild(meta)
+async function initApp() {
+  const { worker } = await import('./shared/mocks/browser')
+  worker.start({
+    quiet: true,
+    onUnhandledRequest: (req, print) => {
+      if (!req.url.startsWith('/api')) return
 
-createApp(AppRoot)
-  .use(router)
-  .mount('#app')
+      print.warning()
+    },
+    serviceWorker: {
+      url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+    },
+  })
+
+  createApp(AppRoot)
+    .use(router)
+    .mount('#app')
+}
+
+initApp()

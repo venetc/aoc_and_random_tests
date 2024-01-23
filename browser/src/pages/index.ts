@@ -15,6 +15,13 @@ export const routes: Array<RouteRecordRaw> = [
       default: () => import(/* webpackChunkName: "TriePage" */'./trie'),
     },
   },
+  {
+    path: '/favorites',
+    name: 'Optimistic UI Page',
+    components: {
+      default: () => import(/* webpackChunkName: "FavoritesPage" */'./favorites'),
+    },
+  },
 ]
 
 export { default as AppRouting } from './AppRouting.vue'
