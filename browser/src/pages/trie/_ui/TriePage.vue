@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useAutocomplete } from '../model'
+import { useAutocomplete } from '../_model'
 
 import { RotateCcw, Trash2 } from 'lucide-vue-next'
+import { DEMO_TEXT } from '@shared/config/constants'
 
-import { DEMO_TEXT } from '@/shared/config'
-import {
-  Button,
-  Input,
-  ScrollArea,
-  Textarea,
-} from '@/shared/ui'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { ScrollArea } from '@/shared/ui/scroll-area'
+import { Textarea } from '@/shared/ui/textarea'
 import { VerticalNavigationSheet } from '@/widgets/vertical-navigation'
+
+defineProps<{ pathname: string }>()
 
 const {
   wordsArray,
@@ -126,7 +126,7 @@ const {
 
       <Transition name="fade">
         <div v-if="wordsArray.length === 0"
-             class="absolute top-0 left-0 w-[calc(100%+1px)] h-full rounded-md bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/5 flex flex-col justify-center items-center"
+             class="absolute top-0 left-0 w-[calc(100%+1px)] h-full rounded-md bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/5 flex flex-col justify-center items-center"
         >
           <div>Paste text into textarea</div>
           <div class="flex items-center gap-2">
@@ -158,6 +158,6 @@ const {
       </ScrollArea>
     </Transition>
 
-    <VerticalNavigationSheet />
+    <VerticalNavigationSheet :pathname="pathname" />
   </div>
 </template>

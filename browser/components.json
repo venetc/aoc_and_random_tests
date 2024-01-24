@@ -3,12 +3,12 @@
   "style": "new-york",
   "typescript": true,
   "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/style.css",
+    "config": "tailwind.config.mjs",
+    "css": "src/globals.css",
     "baseColor": "slate",
     "cssVariables": true
   },
-  "framework": "vite",
+  "framework": "astro",
   "aliases": {
     "components": "@/shared",
     "utils": "@/shared/lib/utils"

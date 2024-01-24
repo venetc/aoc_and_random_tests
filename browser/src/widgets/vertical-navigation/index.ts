@@ -1,1 +1,1 @@
-export * from './ui'
+export { VerticalNavigation, VerticalNavigationSheet } from './ui'

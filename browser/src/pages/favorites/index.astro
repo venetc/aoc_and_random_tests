@@ -1,0 +1,21 @@
+---
+import Layout from '@layouts/Layout.astro';
+import type { ImageMetadata } from 'astro';
+import { FavoritesPage } from './_ui';
+import { getImage } from 'astro:assets';
+
+const { pathname } = Astro.url;
+const rawImages: ImageMetadata[] = Object.values(import.meta.glob('@/shared/assets/sneakers/*.jpg', { eager: true, import: 'default' }));
+const images = [];
+
+for await (const image of rawImages) {
+  const img = await getImage({ src: image, width: 250, height: 135, format: 'jpg' });
+  images.push(img.src);
+}
+---
+
+<Layout title='Astro Test'>
+  <main class='h-full px-4 py-2'>
+    <FavoritesPage client:load {pathname} {images} />
+  </main>
+</Layout>

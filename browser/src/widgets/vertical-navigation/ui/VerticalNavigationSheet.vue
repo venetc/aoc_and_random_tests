@@ -3,16 +3,20 @@ import VerticalNavigation from './VerticalNavigation.vue'
 
 import { Menu } from 'lucide-vue-next'
 import { VisuallyHidden } from 'radix-vue'
+import { Button } from '@shared/ui/button'
 
 import {
-  Button,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/shared/ui'
+} from '@/shared/ui/sheet'
+
+defineProps<{
+  pathname: string
+}>()
 </script>
 
 <template>
@@ -32,7 +36,9 @@ import {
         </SheetHeader>
       </VisuallyHidden>
 
-      <VerticalNavigation class="mt-2" />
+      <VerticalNavigation :pathname="pathname"
+                          class="mt-2"
+      />
     </SheetContent>
   </Sheet>
 </template>

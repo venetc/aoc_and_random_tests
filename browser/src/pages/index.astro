@@ -1,0 +1,12 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { VerticalNavigation } from '@widgets/vertical-navigation';
+
+const { pathname } = Astro.url;
+---
+
+<Layout title='Astro Test'>
+  <main class='h-full px-4 py-2'>
+    <VerticalNavigation client:load {pathname} />
+  </main>
+</Layout>

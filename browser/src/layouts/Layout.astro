@@ -1,0 +1,54 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fira-code';
+import '@fontsource/pt-serif';
+
+import '../globals.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='./favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+
+    <base href={import.meta.env.BASE_URL} />
+    <ViewTransitions />
+  </head>
+  <body>
+    <slot />
+    <script>
+      if (!window.__mockServiceWorker) {
+        try {
+          import('@/shared/mocks/browser').then(({ worker }) => {
+            window.__mockServiceWorker = worker;
+
+            worker.start({
+              quiet: true,
+              onUnhandledRequest: (req, print) => {
+                if (!req.url.startsWith('/api')) return;
+
+                print.warning();
+              },
+              serviceWorker: {
+                url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+              },
+            });
+          });
+        } catch (error) {}
+      }
+    </script>
+  </body>
+</html>

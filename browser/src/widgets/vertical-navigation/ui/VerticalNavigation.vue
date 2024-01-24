@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 import { Button } from '@/shared/ui/button'
 
-const route = useRoute()
+const props = defineProps<{
+  pathname: string
+}>()
 
 const ol = [
-  { label: 'Main Page', routeName: 'Main Page' },
-  { label: 'Trie autocomplete', description: 'Testing different autocomplete techniques using trie and straightforward .filter() + .startsWith()', routeName: 'Trie Page' },
-  { label: 'Optimistic UI update', description: 'Updating UI on user actions and validate on server response while batching updates and debouncing request', routeName: 'Optimistic UI Page' },
+  { label: 'Main Page', path: './' },
+  { label: 'Trie autocomplete', description: 'Testing different autocomplete techniques using trie and straightforward .filter() + .startsWith()', path: './trie' },
+  { label: 'Optimistic UI update', description: 'Updating UI on user actions and validate on server response while batching updates and debouncing request', path: './favorites' },
 ]
-
-const links = computed(() => ol.filter(({ routeName }) => routeName !== route.name))
+const currentRoute = computed(() => `./${props.pathname.split('/').at(-1)}`)
+const links = computed(() => ol.filter(({ path }) => path !== currentRoute.value))
 </script>
 
 <template>
   <nav>
     <ol class="font-fira_code text-sm max-w-[22rem] space-y-4">
-      <li v-for="{ label, description, routeName }, index in links"
-          :key="routeName"
+      <li v-for="{ label, description, path }, index in links"
+          :key="path"
       >
-        <RouterLink :to="{ name: routeName }"
-                    class="flex items-baseline gap-2"
+        <a :href="path"
+           class="flex items-baseline gap-2"
         >
           <span>{{ index + 1 }}.</span>
           <div>
@@ -37,7 +38,7 @@ const links = computed(() => ol.filter(({ routeName }) => routeName !== route.na
               {{ description }}
             </div>
           </div>
-        </RouterLink>
+        </a>
       </li>
     </ol>
   </nav>

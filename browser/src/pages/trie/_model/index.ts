@@ -1,6 +1,5 @@
 import { ref, shallowRef } from 'vue'
-
-import { sanitizeImperative, splitToUniqueWords } from '@/shared/lib'
+import { sanitizeImperative, splitToUniqueWords } from '@shared/lib/string'
 
 export function useAutocomplete(input: string) {
   const wordsArray = shallowRef<string[]>([])

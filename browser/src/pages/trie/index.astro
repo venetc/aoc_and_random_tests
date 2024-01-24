@@ -1,0 +1,12 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { TriePage } from './_ui';
+
+const { pathname } = Astro.url;
+---
+
+<Layout title='Astro Test'>
+  <main class='h-full px-4 py-2'>
+    <TriePage client:load {pathname} />
+  </main>
+</Layout>

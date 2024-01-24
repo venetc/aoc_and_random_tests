@@ -1,15 +1,12 @@
-const animate = require('tailwindcss-animate')
+import animate from 'tailwindcss-animate'
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ['class'],
   safelist: ['dark'],
 
   content: [
-    './pages/**/*.{ts,tsx,vue}',
-    './components/**/*.{ts,tsx,vue}',
-    './app/**/*.{ts,tsx,vue}',
-    './src/**/*.{ts,tsx,vue}',
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
   ],
 
   theme: {
@@ -98,9 +95,9 @@ module.exports = {
         'collapsible-up': 'collapsible-up 0.2s ease-in-out',
       },
       fontFamily: {
-        inter: ['Inter'],
-        pt_serif: ['PT Serif'],
-        fira_code: ['Fira Code'],
+        inter: ['\"Inter Variable\"', 'sans-serif'],
+        pt_serif: ['\"PT Serif\"', 'serif'],
+        fira_code: ['\"Fira Code Variable\"', 'monospace'],
       },
     },
   },

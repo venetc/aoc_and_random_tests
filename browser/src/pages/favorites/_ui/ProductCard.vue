@@ -3,10 +3,12 @@ import { Heart, ShoppingBasket } from 'lucide-vue-next'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { computed } from 'vue'
 
-import type { Product } from '../model'
+import type { Product } from '../_model'
 
-import { AspectRatio, Button, Card, CardTitle } from '@/shared/ui'
-import { cn } from '@/shared/lib'
+import { AspectRatio } from '@/shared/ui/aspect-ratio'
+import { Button } from '@/shared/ui/button'
+import { Card, CardTitle } from '@/shared/ui/card'
+import { cn } from '@/shared/lib/utils'
 
 const props = defineProps<{ product: Product, decorative?: boolean }>()
 const emit = defineEmits<{ onFavClick: [] }>()
@@ -36,6 +38,10 @@ const aspectRatio = computed(() => isMobile.value ? mobileAR.value : 240 / 130)
       </div>
       <img :src="product.image"
            :alt="product.name"
+           decoding="async"
+           loading="lazy"
+           width="248"
+           height="135"
            class="w-full h-full object-cover"
       >
     </AspectRatio>
