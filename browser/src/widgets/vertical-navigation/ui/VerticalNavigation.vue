@@ -8,12 +8,15 @@ const props = defineProps<{
 }>()
 
 const ol = [
-  { label: 'Main Page', path: './' },
-  { label: 'Trie autocomplete', description: 'Testing different autocomplete techniques using trie and straightforward .filter() + .startsWith()', path: './trie' },
-  { label: 'Optimistic UI update', description: 'Updating UI on user actions and validate on server response while batching updates and debouncing request', path: './favorites' },
+  { label: 'Main Page', path: '' },
+  { label: 'Trie autocomplete', description: 'Testing different autocomplete techniques using trie and straightforward .filter() + .startsWith()', path: 'trie' },
+  { label: 'Optimistic UI update', description: 'Updating UI on user actions and validate on server response while batching updates and debouncing request', path: 'favorites' },
 ]
-const currentRoute = computed(() => `./${props.pathname.split('/').at(-1)}`)
-const links = computed(() => ol.filter(({ path }) => path !== currentRoute.value))
+const currentRoute = computed(() => props.pathname.split('/').filter(Boolean))
+const links = computed(() => currentRoute.value.length > 1
+  ? ol.filter(({ path }) => !currentRoute.value.includes(path))
+  : ol.filter((_, index) => index !== 0),
+)
 </script>
 
 <template>
@@ -22,7 +25,7 @@ const links = computed(() => ol.filter(({ path }) => path !== currentRoute.value
       <li v-for="{ label, description, path }, index in links"
           :key="path"
       >
-        <a :href="path"
+        <a :href="`./${path}`"
            class="flex items-baseline gap-2"
         >
           <span>{{ index + 1 }}.</span>

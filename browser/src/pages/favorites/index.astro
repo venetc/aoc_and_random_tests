@@ -14,7 +14,7 @@ for await (const image of rawImages) {
 }
 ---
 
-<Layout title='Astro Test'>
+<Layout>
   <main class='h-full px-4 py-2'>
     <FavoritesPage client:load {pathname} {images} />
   </main>
